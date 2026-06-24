@@ -56,7 +56,7 @@ AIRSOLID est un distributeur d'**équipements aérauliques et de climatisation**
 | Collaboration | Microsoft 365 (déploiement en cours) | Cloud |
 | Web | Site vitrine institutionnel | (à héberger proprement) |
 
-> ⚠️ **Le problème central** : un **seul serveur physique de 2012** porte l'AD, l'ERP et les partages. C'est à la fois un **point de défaillance unique (SPOF)**, un matériel **obsolète**, et la cause de la paralysie lors de la panne.
+>  **Le problème central** : un **seul serveur physique de 2012** porte l'AD, l'ERP et les partages. C'est à la fois un **point de défaillance unique (SPOF)**, un matériel **obsolète**, et la cause de la paralysie lors de la panne.
 
 ## 1.3 Déclencheurs (fiche de situation)
 
@@ -134,11 +134,11 @@ Le site principal héberge les services ; l'entrepôt secondaire (phase 2) s'y r
 
 ```mermaid
 flowchart TB
-    OPA(("☁️ Orange<br/>fibre principale<br/>203.0.113.0/24")):::net
-    OPB(("☁️ SFR<br/>fibre secours<br/>198.51.100.0/24")):::net
-    G5(("📶 Box 5G Orange<br/>ultime secours<br/>192.0.2.0/24")):::net
+    OPA((" Orange<br/>fibre principale<br/>203.0.113.0/24")):::net
+    OPB((" SFR<br/>fibre secours<br/>198.51.100.0/24")):::net
+    G5((" Box 5G Orange<br/>ultime secours<br/>192.0.2.0/24")):::net
 
-    subgraph MAIN["🏢 SITE PRINCIPAL — LAN 10.10.0.0/24"]
+    subgraph MAIN[" SITE PRINCIPAL — LAN 10.10.0.0/24"]
         GW["Passerelle GW-MAIN<br/>WAN-A .11 / WAN-B .11 / 5G .11<br/>LAN 10.10.0.254 / DMZ 172.16.10.254<br/>Failover WAN + OpenVPN (S2S + nomades)"]
         AD1["SRV-AD1<br/>10.10.0.10<br/>AD DS / DNS"]
         ERP["SRV-ERP<br/>10.10.0.20<br/>ERP web"]
@@ -150,7 +150,7 @@ flowchart TB
         end
     end
 
-    subgraph WH2["🏭 ENTREPÔT SECONDAIRE (phase 2, 3 mois) — LAN 10.20.0.0/24"]
+    subgraph WH2[" ENTREPÔT SECONDAIRE (phase 2, 3 mois) — LAN 10.20.0.0/24"]
         GW2["Passerelle GW-WH2<br/>10.20.0.254"]
         AD2["SRV-AD2<br/>10.20.0.10<br/>DC secondaire"]
         ERP2["SRV-ERP2<br/>10.20.0.20<br/>ERP local synchronisé"]
@@ -158,8 +158,8 @@ flowchart TB
         P["8 postes<br/>10.20.0.50-57"]
     end
 
-    NOM["💻 Commerciaux nomades<br/>pool VPN 10.8.0.0/24"]
-    PART["🤝 Partenaire logistique<br/>(EDI)"]
+    NOM[" Commerciaux nomades<br/>pool VPN 10.8.0.0/24"]
+    PART[" Partenaire logistique<br/>(EDI)"]
 
     OPA --- GW
     OPB --- GW
@@ -522,7 +522,7 @@ Pour ne pas dépendre d'une seule infrastructure, deux prestataires ont été so
 
 Concrètement : la **box 5G d'Orange** assure le relais **immédiat** sur place « le temps de la bascule » (le watchdog ne met que quelques secondes à basculer, et la 5G couvre aussi la période avant l'activation de la fibre SFR), tandis que la **fibre SFR** apporte la vraie **redondance opérateur** pour une coupure prolongée.
 
-> ⚠️ **Point de vigilance** : la fibre principale **et** la box 5G proviennent toutes deux d'**Orange**. Une panne nationale Orange les affecterait ensemble — c'est précisément pourquoi la **fibre de secours SFR**, sur un réseau **indépendant**, est la brique de résilience essentielle. La 5G reste un excellent **relais de transition**, pas la redondance principale.
+>  **Point de vigilance** : la fibre principale **et** la box 5G proviennent toutes deux d'**Orange**. Une panne nationale Orange les affecterait ensemble — c'est précisément pourquoi la **fibre de secours SFR**, sur un réseau **indépendant**, est la brique de résilience essentielle. La 5G reste un excellent **relais de transition**, pas la redondance principale.
 
 ## 5.2 Principe de bascule
 
@@ -933,8 +933,8 @@ Le partenaire ne touche **jamais** directement l'ERP. Il dépose/récupère ses 
 
 ```mermaid
 flowchart LR
-    PART["🤝 Partenaire logistique"] -->|"SFTP / AS2 (chiffré)"| EDI["SRV-EDI (DMZ)<br/>172.16.10.20<br/>dépôt chiffré, chrooté"]
-    EDI -.->|"❌ jamais d'accès direct"| ERP["SRV-ERP (LAN)"]
+    PART[" Partenaire logistique"] -->|"SFTP / AS2 (chiffré)"| EDI["SRV-EDI (DMZ)<br/>172.16.10.20<br/>dépôt chiffré, chrooté"]
+    EDI -.->|" jamais d'accès direct"| ERP["SRV-ERP (LAN)"]
     ERP -->|"connecteur interne tire/pousse les fichiers"| EDI
 ```
 
@@ -1087,7 +1087,7 @@ Cible : reprise du périmètre critique < 24 h.
 5. Analyse post-incident.
 ```
 
-> ⚠️ Point d'attention propre à Robocopy `/MIR` : il **réplique les suppressions**. Les **snapshots du NAS** sont donc essentiels — c'est eux, et non le miroir, qui protègent contre un chiffrement/suppression massif.
+> Point d'attention propre à Robocopy `/MIR` : il **réplique les suppressions**. Les **snapshots du NAS** sont donc essentiels — c'est eux, et non le miroir, qui protègent contre un chiffrement/suppression massif.
 
 ## 10.5 Gouvernance
 
