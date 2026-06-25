@@ -1,0 +1,13 @@
+# /etc/systemd/system/wan-failover.service
+[Unit]
+Description=AIRSOLID WAN failover watchdog (double fibre + 5G)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/local/sbin/wan-failover.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

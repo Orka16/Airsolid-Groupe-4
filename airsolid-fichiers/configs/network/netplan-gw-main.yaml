@@ -1,0 +1,30 @@
+# /etc/netplan/01-airsolid.yaml WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300—  GW-MAIN (Ubuntu 24.04)
+# Double fibre (op A/B) par métriques de route + LAN + DMZ.
+# chmod 600 ce fichier, puis : sudo netplan apply
+network:
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300version: 2
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300renderer: networkd
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300ethernets:
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300  enp0s3:                          # WAN-A — fibre principale (Orange)
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    dhcp4: false
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    addresses: [203.0.113.11/24]
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    routes:
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300      - to: default
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300        via: 203.0.113.1
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300        metric: 100
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    nameservers:
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300      addresses: [1.1.1.1, 9.9.9.9]
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300  enp0s8:                          # WAN-B — fibre secours (SFR)
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    dhcp4: false
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    addresses: [198.51.100.11/24]
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    routes:
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300      - to: default
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300        via: 198.51.100.1
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300        metric: 200
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300  enp0s9:                          # LAN site principal
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    dhcp4: false
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    addresses: [10.10.0.254/24]
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300  enp0s10:                         # DMZ
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    dhcp4: false
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300    addresses: [172.16.10.254/24]
+ WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300# WAN-5G (ultime secours) : ajouter ici une interface enp0s16 metric 300
